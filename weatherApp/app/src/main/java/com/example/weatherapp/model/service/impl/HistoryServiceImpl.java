@@ -24,7 +24,7 @@ public class HistoryServiceImpl implements HistoryService {
 
         final ContentValues values = new ContentValues();
         values.put(DBConstants.History.HISTORY_CITY, city);
-        values.put(DBConstants.History.HISTORY_FORECAST_TYPE,forecastType);
+        values.put(DBConstants.History.HISTORY_FORECAST_TYPE, forecastType);
         values.put(DBConstants.History.HISTORY_QUERY, query);
 
         final SQLiteDatabase db = dbHelper.getWritableDatabase();
@@ -56,13 +56,21 @@ public class HistoryServiceImpl implements HistoryService {
         return createHistoryList(cursor);
     }
 
-    private List<HistoryUiBean> createHistoryList(final Cursor cursor){
+    @Override
+    public boolean delete(final String id) {
+        final SQLiteDatabase db = dbHelper.getWritableDatabase();
+        db.delete(DBConstants.HISTORY_TABLE_NAME, String.format("%s = %s;", DBConstants.History.HISTORY_ID, id), null);
+        return true;
+    }
+
+    private List<HistoryUiBean> createHistoryList(final Cursor cursor) {
         final List<HistoryUiBean> list = new ArrayList<>();
-        while(cursor.moveToNext()) {
+        while (cursor.moveToNext()) {
+            final String id = cursor.getString(cursor.getColumnIndex(DBConstants.History.HISTORY_ID));
             final String city = cursor.getString(cursor.getColumnIndex(DBConstants.History.HISTORY_CITY));
             final String forecastType = cursor.getString(cursor.getColumnIndex(DBConstants.History.HISTORY_FORECAST_TYPE));
             final String query = cursor.getString(cursor.getColumnIndex(DBConstants.History.HISTORY_QUERY));
-            list.add(new HistoryUiBean(city, forecastType, query));
+            list.add(new HistoryUiBean(id, city, forecastType, query));
         }
         cursor.close();
         return list;

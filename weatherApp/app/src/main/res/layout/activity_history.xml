@@ -12,10 +12,11 @@
     <ListView
         android:id="@+id/listViewHistory"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="match_parent"
         android:cacheColorHint="@color/colorPrimary"
         android:scrollbars="vertical"
-        android:textSize="12sp" />
+        android:textSize="12sp"
+        android:focusable="true"/>
 
 
 </LinearLayout>

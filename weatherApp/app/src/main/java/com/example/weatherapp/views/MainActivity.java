@@ -29,13 +29,12 @@ public class MainActivity extends BaseActivity{
         final Intent intent = getIntent();
 
         String query = intent.getStringExtra("QUERY");
-        ForecastType forecastType = intent.getStringExtra("FORECAST_TYPE") != null
+        final ForecastType forecastType = intent.getStringExtra("FORECAST_TYPE") != null
                 ? ForecastType.valueOf(intent.getStringExtra("FORECAST_TYPE"))
-                : null;
+                : ForecastType.CURRENT;
 
         if (query == null) {
             query = WeatherQueryProvider.getDailyWeatherForecast("plovdiv");
-            forecastType = ForecastType.CURRENT;
         }
 
         final StringRequest stringRequest = createStringRequest(query, forecastType);

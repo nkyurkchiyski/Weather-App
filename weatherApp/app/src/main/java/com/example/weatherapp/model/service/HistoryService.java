@@ -9,4 +9,6 @@ public interface HistoryService {
     boolean create(final String city, final String forecastType, final String query);
 
     List<HistoryUiBean> getAll();
+
+    boolean delete(final String id);
 }

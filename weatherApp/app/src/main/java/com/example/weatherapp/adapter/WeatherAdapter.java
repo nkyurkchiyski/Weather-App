@@ -10,7 +10,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import com.example.weatherapp.R;
-import com.example.weatherapp.model.uiBean.ForecastType;
 import com.example.weatherapp.model.uiBean.WeatherEntryUiBean;
 
 import java.util.List;

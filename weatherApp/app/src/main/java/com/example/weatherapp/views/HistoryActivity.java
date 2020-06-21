@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.example.weatherapp.R;
@@ -30,8 +31,8 @@ public class HistoryActivity extends BaseActivity {
         final List<HistoryUiBean> list = service.getAll();
 
         final ListView listViewHistory = findViewById(R.id.listViewHistory);
-        listViewHistory.setAdapter(new HistoryAdapter(this, list));
-
+        final ArrayAdapter<HistoryUiBean> adapter = new HistoryAdapter(this, list, service);
+        listViewHistory.setAdapter(adapter);
         listViewHistory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(final AdapterView<?> parent, final View view, final int position, final long id) {
@@ -43,6 +44,7 @@ public class HistoryActivity extends BaseActivity {
                 startActivity(intent);
             }
         });
+
 
     }
 }

@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.weatherapp.R;
 import com.example.weatherapp.api.WeatherQueryProvider;
@@ -34,7 +35,7 @@ public class SearchActivity extends BaseActivity {
     public void executeSearch(final View view) {
         final Spinner spinner = findViewById(R.id.comboBox);
         final ForecastType forecastType = ForecastType.getByText(spinner.getSelectedItem().toString());
-        final String city = ((EditText) findViewById(R.id.cityInput)).getText().toString();
+        final String city = ((EditText) findViewById(R.id.cityInput)).getText().toString().trim();
 
         if (forecastType != null && !city.isEmpty()) {
             String query = null;
@@ -48,7 +49,10 @@ public class SearchActivity extends BaseActivity {
             service.create(city, forecastType.toString(), query);
             final Intent intent = new Intent(this, MainActivity.class);
             intent.putExtra("QUERY", query);
+            intent.putExtra("FORECAST_TYPE", forecastType.toString());
             startActivity(intent);
+        } else {
+            Toast.makeText(this, "Invalid input data!", Toast.LENGTH_LONG).show();
         }
     }
 }

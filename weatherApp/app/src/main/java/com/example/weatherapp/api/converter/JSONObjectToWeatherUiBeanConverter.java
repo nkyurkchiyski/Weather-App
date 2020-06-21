@@ -1,5 +1,6 @@
 package com.example.weatherapp.api.converter;
 
+import com.example.weatherapp.model.uiBean.WeatherImageResource;
 import com.example.weatherapp.model.uiBean.WeatherUiBean;
 
 import org.json.JSONArray;
@@ -8,29 +9,18 @@ import org.json.JSONObject;
 
 public class JSONObjectToWeatherUiBeanConverter {
 
-    public static WeatherUiBean convert(final JSONObject json) {
+    public static WeatherUiBean convert(final JSONObject json) throws JSONException {
 
         final WeatherUiBean uiBean = new WeatherUiBean();
-        try {
-            final JSONObject main = json.getJSONObject("main");
-            final JSONArray weather = json.getJSONArray("weather");
-            final Object weatherType = weather.getJSONObject(0).get("main");
+        final JSONObject main = json.getJSONObject(ApiJSONKey.MAIN);
+        final JSONArray weather = json.getJSONArray(ApiJSONKey.WEATHER);
+        final Object weatherType = weather.getJSONObject(0).get(ApiJSONKey.MAIN);
 
-            uiBean.setCurrentTemperature(convertTemperatureToString(main.get("temp")));
-            uiBean.setMinTemperature(convertTemperatureToString(main.get("temp_min")));
-            uiBean.setMaxTemperature(convertTemperatureToString(main.get("temp_max")));
-            uiBean.setWeatherType((String) weatherType);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        uiBean.setCurrentTemperature(JSONParser.getIntegerValue(main.get(ApiJSONKey.TEMP)));
+        uiBean.setMinTemperature(JSONParser.getIntegerValue(main.get(ApiJSONKey.TEMP_MIN)));
+        uiBean.setMaxTemperature(JSONParser.getIntegerValue(main.get(ApiJSONKey.TEMP_MAX)));
+        uiBean.setWeatherType((String) weatherType);
+        uiBean.setWeatherImage(WeatherImageResource.valueOf(uiBean.getWeatherType().toUpperCase()).getResource());
         return uiBean;
-    }
-
-
-    private static String convertTemperatureToString(final Object temp) {
-        if (temp instanceof Double) {
-            return String.format("%s°C", ((Double) temp).intValue());
-        }
-        return String.format("%s°C", temp);
     }
 }

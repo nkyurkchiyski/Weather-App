@@ -1,9 +1,9 @@
 package com.example.weatherapp.model.uiBean;
 
 public class WeatherUiBean {
-    private String currentTemperature;
-    private String minTemperature;
-    private String maxTemperature;
+    private Integer currentTemperature;
+    private Integer minTemperature;
+    private Integer maxTemperature;
     private String weatherType;
     private String weatherImage;
 
@@ -11,31 +11,31 @@ public class WeatherUiBean {
         return weatherImage;
     }
 
-    public void setWeatherImage(String weatherImage) {
+    public void setWeatherImage(final String weatherImage) {
         this.weatherImage = weatherImage;
     }
 
-    public String getCurrentTemperature() {
+    public Integer getCurrentTemperature() {
         return currentTemperature;
     }
 
-    public void setCurrentTemperature(String currentTemperature) {
+    public void setCurrentTemperature(final Integer currentTemperature) {
         this.currentTemperature = currentTemperature;
     }
 
-    public String getMinTemperature() {
+    public Integer getMinTemperature() {
         return minTemperature;
     }
 
-    public void setMinTemperature(String minTemperature) {
+    public void setMinTemperature(final Integer minTemperature) {
         this.minTemperature = minTemperature;
     }
 
-    public String getMaxTemperature() {
+    public Integer getMaxTemperature() {
         return maxTemperature;
     }
 
-    public void setMaxTemperature(String maxTemperature) {
+    public void setMaxTemperature(final Integer maxTemperature) {
         this.maxTemperature = maxTemperature;
     }
 
@@ -43,7 +43,7 @@ public class WeatherUiBean {
         return weatherType;
     }
 
-    public void setWeatherType(String weatherType) {
+    public void setWeatherType(final String weatherType) {
         this.weatherType = weatherType;
     }
 }
