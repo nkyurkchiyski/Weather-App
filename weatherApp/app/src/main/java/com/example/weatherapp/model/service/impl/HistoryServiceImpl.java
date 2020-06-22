@@ -20,7 +20,7 @@ public class HistoryServiceImpl implements HistoryService {
     }
 
     @Override
-    public boolean create(String city, String forecastType, String query) {
+    public void create(String city, String forecastType, String query) {
 
         final ContentValues values = new ContentValues();
         values.put(DBConstants.History.HISTORY_CITY, city);
@@ -29,7 +29,6 @@ public class HistoryServiceImpl implements HistoryService {
 
         final SQLiteDatabase db = dbHelper.getWritableDatabase();
         db.insert(DBConstants.HISTORY_TABLE_NAME, null, values);
-        return false;
     }
 
     @Override
@@ -57,10 +56,9 @@ public class HistoryServiceImpl implements HistoryService {
     }
 
     @Override
-    public boolean delete(final String id) {
+    public void delete(final String id) {
         final SQLiteDatabase db = dbHelper.getWritableDatabase();
         db.delete(DBConstants.HISTORY_TABLE_NAME, String.format("%s = %s;", DBConstants.History.HISTORY_ID, id), null);
-        return true;
     }
 
     private List<HistoryUiBean> createHistoryList(final Cursor cursor) {
